@@ -37,9 +37,9 @@ class HomeScreen extends StatelessWidget {
           crossAxisSpacing: 16.0,
           children: List.generate(5, (index) {
             return ProductItem(
-              imageUrl:
-                  'assets/product${index + 1}.jpg', // Assuming you have product images named product1.jpg, product2.jpg, etc. in your assets folder
+              imageUrl: 'assets/product${index + 1}.jpg',
               productName: 'Product ${index + 1}',
+              productPrice: '\$${(index + 1) * 10}', // Sample price calculation
             );
           }),
         ),
@@ -51,18 +51,27 @@ class HomeScreen extends StatelessWidget {
 class ProductItem extends StatelessWidget {
   final String imageUrl;
   final String productName;
+  final String productPrice;
 
   const ProductItem({
     Key? key,
     required this.imageUrl,
     required this.productName,
+    required this.productPrice,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Handle product tap
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProductDetailsPage(
+                  imageUrl: imageUrl,
+                  productName: productName,
+                  productPrice: productPrice)),
+        );
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,6 +88,54 @@ class ProductItem extends StatelessWidget {
             style: TextStyle(fontSize: 16.0),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ProductDetailsPage extends StatelessWidget {
+  final String imageUrl;
+  final String productName;
+  final String productPrice;
+
+  const ProductDetailsPage({
+    Key? key,
+    required this.imageUrl,
+    required this.productName,
+    required this.productPrice,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(productName),
+        backgroundColor: Colors.yellow,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              imageUrl,
+              height: 200,
+              width: 200,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'Price: $productPrice',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                // Handle add to cart button tap
+              },
+              child: Text('Add to Cart'),
+            ),
+          ],
+        ),
       ),
     );
   }
