@@ -12,7 +12,7 @@ class ShoppingApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.yellow,
-        accentColor: Colors.white,
+        hintColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -26,13 +26,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping App'),
+        title: const Text('Shopping App'),
         backgroundColor: Colors.yellow,
       ),
       body: Center(
         child: GridView.count(
           crossAxisCount: 2,
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           mainAxisSpacing: 16.0,
           crossAxisSpacing: 16.0,
           children: List.generate(10, (index) {
@@ -53,9 +53,9 @@ class ProductItem extends StatelessWidget {
   final String productName;
 
   const ProductItem({
-    Key key,
-    @required this.imageUrl,
-    @required this.productName,
+    Key? key,
+    required this.imageUrl,
+    required this.productName,
   }) : super(key: key);
 
   @override
