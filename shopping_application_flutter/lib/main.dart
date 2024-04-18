@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(ShoppingApp());
@@ -172,17 +172,6 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   String? _selectedPaymentOption;
 
-  Future<void> _openWebsite() async {
-    const url = 'https://www.youtube.com/watch?v=iYWV_LJ96gs';
-    // ignore: deprecated_member_use
-    if (await canLaunch(url)) {
-      // ignore: deprecated_member_use
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -237,12 +226,38 @@ class _CartPageState extends State<CartPage> {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                _openWebsite();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebViewPage(
+                      url: 'https://imgur.com/CHE6ilh', // Replace with your URL
+                    ),
+                  ),
+                );
               },
               child: Text('Pay'),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class WebViewPage extends StatelessWidget {
+  final String url;
+
+  const WebViewPage({Key? key, required this.url}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Web View'),
+      ),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }
