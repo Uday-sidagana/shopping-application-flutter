@@ -152,7 +152,7 @@ class ProductDetailsPage extends StatelessWidget {
   }
 }
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   final String imageUrl;
   final String productName;
   final String productPrice;
@@ -163,6 +163,13 @@ class CartPage extends StatelessWidget {
     required this.productName,
     required this.productPrice,
   }) : super(key: key);
+
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  String? _selectedPaymentOption;
 
   @override
   Widget build(BuildContext context) {
@@ -176,20 +183,44 @@ class CartPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              imageUrl,
+              widget.imageUrl,
               height: 100,
               width: 100,
               fit: BoxFit.cover,
             ),
             SizedBox(height: 16.0),
             Text(
-              productName,
+              widget.productName,
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 8.0),
             Text(
-              'Price: $productPrice',
+              'Price: ${widget.productPrice}',
               style: TextStyle(fontSize: 16.0),
+            ),
+            SizedBox(height: 16.0),
+            DropdownButton<String>(
+              value: _selectedPaymentOption,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedPaymentOption = newValue;
+                });
+              },
+              items: [
+                DropdownMenuItem(
+                  value: 'UPI',
+                  child: Text('UPI'),
+                ),
+                DropdownMenuItem(
+                  value: 'Debit/Credit Card',
+                  child: Text('Debit/Credit Card'),
+                ),
+                DropdownMenuItem(
+                  value: 'Cash On Delivery',
+                  child: Text('Cash On Delivery'),
+                ),
+              ],
+              hint: Text('Select Payment Option'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
