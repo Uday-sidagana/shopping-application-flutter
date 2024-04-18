@@ -173,8 +173,10 @@ class _CartPageState extends State<CartPage> {
   String? _selectedPaymentOption;
 
   Future<void> _openWebsite() async {
-    const url = 'hhttps://www.ilovepdf.com';
+    const url = 'https://www.youtube.com/watch?v=iYWV_LJ96gs';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url);
     } else {
       throw 'Could not launch $url';
