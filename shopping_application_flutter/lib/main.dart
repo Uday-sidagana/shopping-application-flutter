@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(ShoppingApp());
@@ -171,6 +172,15 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   String? _selectedPaymentOption;
 
+  Future<void> _openWebsite() async {
+    const url = 'hhttps://www.ilovepdf.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -206,7 +216,7 @@ class _CartPageState extends State<CartPage> {
                   _selectedPaymentOption = newValue;
                 });
               },
-              items: [
+              items: const [
                 DropdownMenuItem(
                   value: 'UPI',
                   child: Text('UPI'),
@@ -220,12 +230,12 @@ class _CartPageState extends State<CartPage> {
                   child: Text('Cash On Delivery'),
                 ),
               ],
-              hint: Text('Select Payment Option'),
+              hint: const Text('Select Payment Option'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // Handle payment
+                _openWebsite();
               },
               child: Text('Pay'),
             ),
