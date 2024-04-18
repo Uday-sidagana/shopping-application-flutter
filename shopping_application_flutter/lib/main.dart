@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           mainAxisSpacing: 16.0,
           crossAxisSpacing: 16.0,
-          children: List.generate(10, (index) {
+          children: List.generate(5, (index) {
             return ProductItem(
               imageUrl:
                   'assets/product${index + 1}.jpg', // Assuming you have product images named product1.jpg, product2.jpg, etc. in your assets folder
