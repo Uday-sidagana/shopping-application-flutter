@@ -67,10 +67,12 @@ class ProductItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ProductDetailsPage(
-                  imageUrl: imageUrl,
-                  productName: productName,
-                  productPrice: productPrice)),
+            builder: (context) => ProductDetailsPage(
+              imageUrl: imageUrl,
+              productName: productName,
+              productPrice: productPrice,
+            ),
+          ),
         );
       },
       child: Column(
@@ -130,9 +132,71 @@ class ProductDetailsPage extends StatelessWidget {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // Handle add to cart button tap
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CartPage(
+                      imageUrl: imageUrl,
+                      productName: productName,
+                      productPrice: productPrice,
+                    ),
+                  ),
+                );
               },
               child: Text('Add to Cart'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CartPage extends StatelessWidget {
+  final String imageUrl;
+  final String productName;
+  final String productPrice;
+
+  const CartPage({
+    Key? key,
+    required this.imageUrl,
+    required this.productName,
+    required this.productPrice,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cart'),
+        backgroundColor: Colors.yellow,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              imageUrl,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              productName,
+              style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              'Price: $productPrice',
+              style: TextStyle(fontSize: 16.0),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                // Handle payment
+              },
+              child: Text('Pay'),
             ),
           ],
         ),
